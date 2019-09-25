@@ -1,7 +1,8 @@
-#logging:
-##  pattern:
-##    console: "%d - %msg%n"
-##  path: C:/Users/ZJM/Downloads/spring-boot-samples-master/spring-boot-samples-master/sell
-##  file: C:/Users/ZJM/Downloads/spring-boot-samples-master/spring-boot-samples-master/sell/sell-log.log
-##  level:
-##    com.imooc.DemoApplicationTests: info
+spring:
+  datasource:
+    url: jdbc:mysql://192.168.56.191/sell?characterEncoding=utf-8&useSSL=false
+    driver-class-name: com.mysql.jdbc.Driver
+    username: root
+    password: 123456
+  jpa:
+    show-sql: true
