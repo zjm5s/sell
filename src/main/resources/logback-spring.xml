@@ -10,11 +10,13 @@
     </appender>
 
     <appender name="fileInfoLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--过滤器 匹配则过滤，否则接受，此处接受Error级别以下的日志-->
         <filter class="ch.qos.logback.classic.filter.LevelFilter">
             <level>ERROR</level>
             <onMatch>DENY</onMatch>
             <onMismatch>ACCEPT</onMismatch>
         </filter>
+        <!--过滤器-->
         <encoder>
             <pattern>
                 %d - %msg%n
@@ -28,9 +30,11 @@
     </appender>
 
     <appender name="fileErrorLog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!--过滤器 粗粒度过滤器，此处接受Error级别的日志-->
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
             <level>ERROR</level>
         </filter>
+        <!--过滤器-->
         <encoder>
             <pattern>
                 %d - %msg%n
