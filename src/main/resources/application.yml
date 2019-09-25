@@ -1,0 +1,7 @@
+#logging:
+#  pattern:
+#    console: "%d - %msg%n"
+#  path: C:/Users/ZJM/Downloads/spring-boot-samples-master/spring-boot-samples-master/sell
+#  file: C:/Users/ZJM/Downloads/spring-boot-samples-master/spring-boot-samples-master/sell/sell-log.log
+#  level:
+#    com.imooc.DemoApplicationTests: info

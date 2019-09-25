@@ -1,0 +1,14 @@
+2019-09-24 23:02:02,506 - Starting DemoApplicationTests on DESKTOP-SDKJFL125DI with PID 12304 (started by ZJM in C:\Users\ZJM\Downloads\spring-boot-samples-master\spring-boot-samples-master\sell)
+2019-09-24 23:02:02,508 - No active profile set, falling back to default profiles: default
+2019-09-24 23:02:04,519 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-24 23:02:04,856 - Started DemoApplicationTests in 2.887 seconds (JVM running for 4.024)
+2019-09-24 23:02:05,206 - info...
+2019-09-24 23:02:05,206 - warn...
+2019-09-24 23:02:05,215 - Shutting down ExecutorService 'applicationTaskExecutor'
+2019-09-24 23:02:39,170 - Starting DemoApplicationTests on DESKTOP-SDKJFL125DI with PID 256 (started by ZJM in C:\Users\ZJM\Downloads\spring-boot-samples-master\spring-boot-samples-master\sell)
+2019-09-24 23:02:39,176 - No active profile set, falling back to default profiles: default
+2019-09-24 23:02:41,318 - Initializing ExecutorService 'applicationTaskExecutor'
+2019-09-24 23:02:41,693 - Started DemoApplicationTests in 3.201 seconds (JVM running for 4.505)
+2019-09-24 23:02:42,080 - info...
+2019-09-24 23:02:42,080 - warn...
+2019-09-24 23:02:42,091 - Shutting down ExecutorService 'applicationTaskExecutor'
