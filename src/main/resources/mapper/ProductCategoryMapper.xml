@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.imooc.mapper.ProductCategoryMapper">
+    <select id="mySelect" resultType="com.imooc.entity.ProductCategory">
+        select * from product_category where category_id = 1
+    </select>
+</mapper>
