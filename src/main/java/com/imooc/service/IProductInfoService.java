@@ -1,5 +1,6 @@
 package com.imooc.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.imooc.entity.ProductInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,5 +13,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2019-09-25
  */
 public interface IProductInfoService extends IService<ProductInfo> {
-
+    IPage<ProductInfo> findUpAll();
+    ProductInfo findOne(Integer id);
 }

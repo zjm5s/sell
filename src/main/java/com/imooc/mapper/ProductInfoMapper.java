@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
  * @author jobob
  * @since 2019-09-25
  */
-
+@Repository
 public interface ProductInfoMapper extends BaseMapper<ProductInfo> {
 
 }
