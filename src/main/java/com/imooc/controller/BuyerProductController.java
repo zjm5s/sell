@@ -1,5 +1,6 @@
 package com.imooc.controller;
 
+import com.imooc.Utils.ResultVOUtils;
 import com.imooc.VO.ProductInfoVO;
 import com.imooc.VO.ProductVO;
 import com.imooc.VO.ResultVO;
@@ -56,12 +57,6 @@ public class BuyerProductController {
             productVO.setProductInfoVOS(productInfoVOS);
             productVOS.add(productVO);
         });
-
-        ResultVO<List<ProductVO>> productVOResultVO = new ResultVO<>();
-        productVOResultVO.setCode(0);
-        productVOResultVO.setMsg("成功");
-        productVOResultVO.setData(productVOS);
-        return productVOResultVO;
-
+        return ResultVOUtils.successe(productVOS);
     }
 }
