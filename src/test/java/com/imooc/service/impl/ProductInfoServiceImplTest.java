@@ -45,6 +45,7 @@ public class ProductInfoServiceImplTest {
     public void selectAllTest(){
         List<ProductInfo> list = service.list();
         Assert.assertNotEquals(0,list.size());
+        System.out.println(list);
     }
 
     @Test

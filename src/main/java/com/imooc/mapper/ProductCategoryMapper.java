@@ -4,6 +4,8 @@ import com.imooc.entity.ProductCategory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * <p>
  * Mapper 接口
@@ -12,7 +14,6 @@ import org.springframework.stereotype.Repository;
  * @author jobob
  * @since 2019-09-25
  */
-@Repository
 public interface ProductCategoryMapper extends BaseMapper<ProductCategory> {
-    ProductCategory mySelect();
+    List<ProductCategory> selectByCategoryTypesIn(List<Integer> list);
 }

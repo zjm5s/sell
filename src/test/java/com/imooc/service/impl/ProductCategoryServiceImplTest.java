@@ -10,6 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 @RunWith(SpringRunner.class)
@@ -18,16 +21,6 @@ public class ProductCategoryServiceImplTest {
 
     @Autowired
     ProductCategoryServiceImpl productCategoryService;
-
-    @Test
-    public void selectOneTest(){
-        QueryWrapper<ProductCategory> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("category_id",1);
-        ProductCategory one = productCategoryService.getOne(queryWrapper);
-        System.out.println(one);
-        ProductCategory productCategory = productCategoryService.mySelect();
-        System.out.println(productCategory);
-    }
 
     @Test
     public void saveOneTest(){
@@ -45,5 +38,11 @@ public class ProductCategoryServiceImplTest {
         UpdateWrapper<ProductCategory> productCategoryUpdateWrapper = new UpdateWrapper<>();
         productCategoryUpdateWrapper.eq("category_id",2);
         System.out.println(productCategoryService.update(productCategory, productCategoryUpdateWrapper));
+    }
+
+    @Test
+    public void  getCategoryTypesTest(){
+        List<ProductCategory> byCategoryTypesIn = productCategoryService.findByCategoryTypesIn(Arrays.asList(2,4));
+        byCategoryTypesIn.forEach(System.out::println);
     }
 }

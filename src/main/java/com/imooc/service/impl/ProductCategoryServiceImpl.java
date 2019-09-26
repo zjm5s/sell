@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 服务实现类
@@ -17,10 +19,8 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class ProductCategoryServiceImpl extends ServiceImpl<ProductCategoryMapper, ProductCategory> implements IProductCategoryService {
-    @Autowired
-    ProductCategoryMapper mapper;
 
-    public ProductCategory mySelect() {
-        return mapper.mySelect();
+    public List<ProductCategory> findByCategoryTypesIn(List<Integer> list){
+        return baseMapper.selectByCategoryTypesIn(list);
     }
 }
