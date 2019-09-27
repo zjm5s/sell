@@ -40,9 +40,4 @@ public class ProductCategoryServiceImplTest {
         System.out.println(productCategoryService.update(productCategory, productCategoryUpdateWrapper));
     }
 
-    @Test
-    public void  getCategoryTypesTest(){
-        List<ProductCategory> byCategoryTypesIn = productCategoryService.findByCategoryTypesIn(Arrays.asList(2,4));
-        byCategoryTypesIn.forEach(System.out::println);
-    }
 }

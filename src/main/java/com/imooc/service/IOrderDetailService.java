@@ -2,6 +2,7 @@ package com.imooc.service;
 
 import com.imooc.entity.OrderDetail;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.imooc.entity.OrderMaster;
 
 /**
  * <p>

@@ -1,9 +1,11 @@
 package com.imooc.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.imooc.entity.ProductInfo;
+import com.imooc.mapper.ProductCategoryMapper;
 import com.imooc.mapper.ProductInfoMapper;
 import com.imooc.service.IProductInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -22,8 +24,6 @@ import java.util.List;
  */
 @Service
 public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, ProductInfo> implements IProductInfoService {
-    @Autowired
-    private ProductInfoMapper mapper;
 
     public ProductInfo findOne(Integer id){
         QueryWrapper<ProductInfo> productInfoQueryWrapper = new QueryWrapper<>();
@@ -34,5 +34,9 @@ public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, Produ
     public IPage<ProductInfo> findUpAll(){
         Page<ProductInfo> productInfoPage = new Page<>();
         return page(productInfoPage);
+    }
+
+    public void test(){
+
     }
 }

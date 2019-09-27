@@ -50,9 +50,11 @@ public class BuyerProductController {
             productVO.setCategoryType(category.getCategoryType());
             List<ProductInfoVO> productInfoVOS = new ArrayList<>();
             productInfos.forEach(productInfo -> {
-                ProductInfoVO productInfoVO = new ProductInfoVO();
-                BeanUtils.copyProperties(productInfo,productInfoVO);
-                productInfoVOS.add(productInfoVO);
+                if (productInfo.getCategoryType()==category.getCategoryType()){
+                    ProductInfoVO productInfoVO = new ProductInfoVO();
+                    BeanUtils.copyProperties(productInfo,productInfoVO);
+                    productInfoVOS.add(productInfoVO);
+                }
             });
             productVO.setProductInfoVOS(productInfoVOS);
             productVOS.add(productVO);

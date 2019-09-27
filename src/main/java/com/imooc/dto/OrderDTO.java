@@ -1,29 +1,16 @@
-package com.imooc.entity;
+package com.imooc.dto;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.io.Serializable;
-
+import com.imooc.entity.OrderDetail;
 import com.imooc.enums.OrderStatusEnum;
 import com.imooc.enums.PayStatusEnum;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
 
-/**
- * <p>
- * 
- * </p>
- *
- * @author jobob
- * @since 2019-09-25
- */
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.util.List;
+
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-public class OrderMaster implements Serializable {
-
-    private static final long serialVersionUID = 1L;
+public class OrderDTO {
 
     private String orderId;
 
@@ -72,5 +59,5 @@ public class OrderMaster implements Serializable {
      */
     private LocalDateTime updateTime;
 
-
+    private List<OrderDetail> orderDetailList;
 }
