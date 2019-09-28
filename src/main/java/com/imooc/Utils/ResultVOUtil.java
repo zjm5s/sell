@@ -5,7 +5,7 @@ import com.imooc.VO.ResultVO;
 
 import java.util.List;
 
-public class ResultVOUtils {
+public class ResultVOUtil {
     public static ResultVO successe(Object object){
         ResultVO resultVO = new ResultVO<>();
         resultVO.setCode(0);

@@ -1,14 +1,22 @@
 package com.imooc.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.imooc.dto.OrderDTO;
+import com.imooc.entity.OrderDetail;
 import com.imooc.entity.OrderMaster;
+import com.imooc.entity.ProductInfo;
+import com.imooc.enums.ResultEnum;
+import com.imooc.exception.SellException;
 import com.imooc.mapper.OrderDetailMapper;
 import com.imooc.mapper.OrderMasterMapper;
 import com.imooc.service.IOrderMasterService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.math.BigDecimal;
+import java.math.BigInteger;
 
 /**
  * <p>
@@ -22,11 +30,25 @@ import org.springframework.stereotype.Service;
 public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, OrderMaster> implements IOrderMasterService {
 
     @Autowired
-    OrderDetailMapper orderDetailMapper;
+    private OrderDetailMapper orderDetailMapper;
+    @Autowired
+    private ProductInfoServiceImpl productInfoService;
 
     @Override
     public OrderDTO create(OrderDTO orderDTO) {
-
+        BigDecimal orderAmount = new BigDecimal(BigInteger.ZERO);
+//        1.查询商品（价格，数量）
+        for (OrderDetail orderDetail : orderDTO.getOrderDetailList()) {
+            QueryWrapper<ProductInfo> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("product_id",orderDetail.getProductId());
+            ProductInfo productInfo = productInfoService.getOne(queryWrapper);
+            if (productInfo == null){
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+//            2.计算总价
+            orderAmount = orderDetail.getProductPrice().multiply(new BigDecimal(orderDetail.getProductQuantity())).add(orderAmount);
+//            3.订单详情入库
+        }
         return null;
     }
 

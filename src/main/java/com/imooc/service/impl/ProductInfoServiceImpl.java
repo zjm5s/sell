@@ -25,12 +25,6 @@ import java.util.List;
 @Service
 public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, ProductInfo> implements IProductInfoService {
 
-    public ProductInfo findOne(Integer id){
-        QueryWrapper<ProductInfo> productInfoQueryWrapper = new QueryWrapper<>();
-        productInfoQueryWrapper.eq("product_id",id);
-        return getOne(productInfoQueryWrapper);
-    }
-
     public IPage<ProductInfo> findUpAll(){
         Page<ProductInfo> productInfoPage = new Page<>();
         return page(productInfoPage);

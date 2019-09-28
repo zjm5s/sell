@@ -14,5 +14,4 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IProductInfoService extends IService<ProductInfo> {
     IPage<ProductInfo> findUpAll();
-    ProductInfo findOne(Integer id);
 }

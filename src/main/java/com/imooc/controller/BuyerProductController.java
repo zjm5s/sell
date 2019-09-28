@@ -1,6 +1,6 @@
 package com.imooc.controller;
 
-import com.imooc.Utils.ResultVOUtils;
+import com.imooc.Utils.ResultVOUtil;
 import com.imooc.VO.ProductInfoVO;
 import com.imooc.VO.ProductVO;
 import com.imooc.VO.ResultVO;
@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -59,6 +58,6 @@ public class BuyerProductController {
             productVO.setProductInfoVOS(productInfoVOS);
             productVOS.add(productVO);
         });
-        return ResultVOUtils.successe(productVOS);
+        return ResultVOUtil.successe(productVOS);
     }
 }
