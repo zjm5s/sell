@@ -21,7 +21,7 @@ public interface IOrderMasterService extends IService<OrderMaster> {
     OrderDTO findOne(String orderId);
 
     /** 查询订单列表 */
-    IPage<OrderDTO> findList(String buyerOpenid);
+    IPage<OrderDTO> findList(String buyerOpenid,IPage<OrderMaster> orderMasterIPage);
 
     /** 取消订单 */
     OrderDTO cancel(OrderDTO orderDTO);

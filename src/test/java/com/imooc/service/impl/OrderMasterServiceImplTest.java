@@ -1,8 +1,10 @@
 package com.imooc.service.impl;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.imooc.dto.OrderDTO;
 import com.imooc.entity.OrderDetail;
+import com.imooc.entity.OrderMaster;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +52,7 @@ public class OrderMasterServiceImplTest {
 
     @Test
     public void findList() {
-        IPage<OrderDTO> list = orderMasterService.findList("123455");
+        IPage<OrderDTO> list = orderMasterService.findList("123455",new Page<OrderMaster>(1,10));
         List<OrderDTO> records = list.getRecords();
         long current = list.getCurrent();
         long pages = list.getPages();

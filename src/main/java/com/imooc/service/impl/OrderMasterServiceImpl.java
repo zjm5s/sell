@@ -109,14 +109,13 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
     }
 
     @Override
-    public IPage<OrderDTO> findList(String buyerOpenid) {
+    public IPage<OrderDTO> findList(String buyerOpenid,IPage<OrderMaster> orderMasterIPage) {
         QueryWrapper<OrderMaster> orderMasterQueryWrapper = new QueryWrapper<>();
         orderMasterQueryWrapper.eq("buyer_openid",buyerOpenid);
-        Page<OrderMaster> orderMasterPage = new Page<>(1,10);
-        IPage<OrderMaster> page = page(orderMasterPage, orderMasterQueryWrapper);
+        IPage<OrderMaster> page = page(orderMasterIPage, orderMasterQueryWrapper);
         Page<OrderDTO> orderDTOPage = new Page<>();
-        BeanUtils.copyProperties(orderMasterPage,orderDTOPage);
-        orderDTOPage.setRecords(OrderMaster2OrderDTOConverter.convert(orderMasterPage.getRecords()));
+        BeanUtils.copyProperties(orderMasterIPage,orderDTOPage);
+        orderDTOPage.setRecords(OrderMaster2OrderDTOConverter.convert(orderMasterIPage.getRecords()));
         return orderDTOPage;
     }
 
