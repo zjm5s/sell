@@ -3,6 +3,7 @@ package com.imooc.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.imooc.Utils.KeyUtil;
+import com.imooc.dto.CartDTO;
 import com.imooc.dto.OrderDTO;
 import com.imooc.entity.OrderDetail;
 import com.imooc.entity.OrderMaster;
@@ -16,9 +17,13 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -37,6 +42,7 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
     private ProductInfoServiceImpl productInfoService;
 
     @Override
+    @Transactional
     public OrderDTO create(OrderDTO orderDTO) {
         String orderId = KeyUtil.genUniqueKey();
         BigDecimal orderAmount = new BigDecimal(BigInteger.ZERO);
@@ -49,11 +55,11 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
 //            2.计算总价
-            orderAmount = orderDetail.getProductPrice().multiply(new BigDecimal(orderDetail.getProductQuantity())).add(orderAmount);
+            orderAmount = productInfo.getProductPrice().multiply(new BigDecimal(orderDetail.getProductQuantity())).add(orderAmount);
 //            3.订单详情入库
+            BeanUtils.copyProperties(productInfo,orderDetail);
             orderDetail.setOrderId(orderId);
             orderDetail.setDetailId(KeyUtil.genUniqueKey());
-            BeanUtils.copyProperties(productInfo,orderDetail);
             orderDetailMapper.insert(orderDetail);
         }
         OrderMaster orderMaster = new OrderMaster();
@@ -61,7 +67,16 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
         orderMaster.setOrderId(orderId);
         orderMaster.setOrderAmount(orderAmount);
         save(orderMaster);
-        return null;
+
+//        4.减库存
+        List<CartDTO> cartDTOList = orderDTO.getOrderDetailList()
+                .stream()
+                .map(e->
+                        new CartDTO(e.getProductId(),e.getProductQuantity())
+                ).collect(Collectors.toList());
+        productInfoService.decreaseStock(cartDTOList);
+
+        return orderDTO;
     }
 
     @Override
