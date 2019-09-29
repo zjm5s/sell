@@ -1,5 +1,6 @@
 package com.imooc.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.imooc.dto.OrderDTO;
 import com.imooc.entity.OrderDetail;
 import org.junit.Test;
@@ -49,6 +50,18 @@ public class OrderMasterServiceImplTest {
 
     @Test
     public void findList() {
+        IPage<OrderDTO> list = orderMasterService.findList("123455");
+        List<OrderDTO> records = list.getRecords();
+        long current = list.getCurrent();
+        long pages = list.getPages();
+        long size = list.getSize();
+        long total = list.getTotal();
+        System.out.println(records);
+        System.out.println(current);
+        System.out.println(pages);
+        System.out.println(size);
+        System.out.println(pages);
+        System.out.println(total);
     }
 
     @Test

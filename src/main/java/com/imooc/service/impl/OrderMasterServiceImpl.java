@@ -2,7 +2,9 @@ package com.imooc.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.imooc.Utils.KeyUtil;
+import com.imooc.converter.OrderMaster2OrderDTOConverter;
 import com.imooc.dto.CartDTO;
 import com.imooc.dto.OrderDTO;
 import com.imooc.entity.OrderDetail;
@@ -108,7 +110,14 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
 
     @Override
     public IPage<OrderDTO> findList(String buyerOpenid) {
-        return null;
+        QueryWrapper<OrderMaster> orderMasterQueryWrapper = new QueryWrapper<>();
+        orderMasterQueryWrapper.eq("buyer_openid",buyerOpenid);
+        Page<OrderMaster> orderMasterPage = new Page<>(1,10);
+        IPage<OrderMaster> page = page(orderMasterPage, orderMasterQueryWrapper);
+        Page<OrderDTO> orderDTOPage = new Page<>();
+        BeanUtils.copyProperties(orderMasterPage,orderDTOPage);
+        orderDTOPage.setRecords(OrderMaster2OrderDTOConverter.convert(orderMasterPage.getRecords()));
+        return orderDTOPage;
     }
 
     @Override
