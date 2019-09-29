@@ -15,49 +15,64 @@ import com.imooc.service.IProductInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author jobob
  * @since 2019-09-25
  */
 @Service
-    public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, ProductInfo> implements IProductInfoService {
+public class ProductInfoServiceImpl extends ServiceImpl<ProductInfoMapper, ProductInfo> implements IProductInfoService {
 
-    public IPage<ProductInfo> findUpAll(){
+    public IPage<ProductInfo> findUpAll() {
         Page<ProductInfo> productInfoPage = new Page<>();
         return page(productInfoPage);
     }
 
     @Override
+    @Transactional
     public void increaseStock(List<CartDTO> cartDTOList) {
-
+        for (CartDTO cartDTO : cartDTOList) {
+            QueryWrapper<ProductInfo> productInfoQueryWrapper = new QueryWrapper<>();
+            productInfoQueryWrapper.eq("product_id", cartDTO.getProductId());
+            ProductInfo productInfo = getOne(productInfoQueryWrapper);
+            if (productInfo == null) {
+                throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
+            }
+            Integer result = productInfo.getProductStock() + cartDTO.getProductQuantity();
+            productInfo.setProductStock(result);
+            UpdateWrapper<ProductInfo> productInfoUpdateWrapper = new UpdateWrapper<>();
+            productInfoUpdateWrapper.eq("product_id",cartDTO.getProductId());
+            update(productInfo, productInfoUpdateWrapper);
+        }
     }
 
     @Override
+    @Transactional
     public void decreaseStock(List<CartDTO> cartDTOList) {
         for (CartDTO cartDTO : cartDTOList) {
             QueryWrapper<ProductInfo> productInfoQueryWrapper = new QueryWrapper<>();
-            productInfoQueryWrapper.eq("product_id",cartDTO.getProductId());
+            productInfoQueryWrapper.eq("product_id", cartDTO.getProductId());
             ProductInfo productInfo = getOne(productInfoQueryWrapper);
-            if (productInfo == null){
+            if (productInfo == null) {
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
             //减库存
-            Integer result = productInfo.getProductStock()-cartDTO.getProductQuantity();
-            if (result<0){
+            Integer result = productInfo.getProductStock() - cartDTO.getProductQuantity();
+            if (result < 0) {
                 throw new SellException(ResultEnum.PRODUCT_STOCK_ERROR);
             }
 
             productInfo.setProductStock(result);
             UpdateWrapper<ProductInfo> productInfoUpdateWrapper = new UpdateWrapper<>();
-            productInfoUpdateWrapper.eq("product_id",productInfo.getProductId());
-            update(productInfo,productInfoUpdateWrapper);
+            productInfoUpdateWrapper.eq("product_id", productInfo.getProductId());
+            update(productInfo, productInfoUpdateWrapper);
         }
     }
 
