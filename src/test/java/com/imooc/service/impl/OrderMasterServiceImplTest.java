@@ -43,6 +43,8 @@ public class OrderMasterServiceImplTest {
 
     @Test
     public void findOne() {
+        OrderDTO orderDTO = orderMasterService.findOne("1569741285757288168");
+        System.out.println(orderDTO);
     }
 
     @Test

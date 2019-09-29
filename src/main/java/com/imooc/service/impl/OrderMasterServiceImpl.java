@@ -8,6 +8,8 @@ import com.imooc.dto.OrderDTO;
 import com.imooc.entity.OrderDetail;
 import com.imooc.entity.OrderMaster;
 import com.imooc.entity.ProductInfo;
+import com.imooc.enums.OrderStatusEnum;
+import com.imooc.enums.PayStatusEnum;
 import com.imooc.enums.ResultEnum;
 import com.imooc.exception.SellException;
 import com.imooc.mapper.OrderDetailMapper;
@@ -18,6 +20,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -55,7 +58,9 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
                 throw new SellException(ResultEnum.PRODUCT_NOT_EXIST);
             }
 //            2.计算总价
-            orderAmount = productInfo.getProductPrice().multiply(new BigDecimal(orderDetail.getProductQuantity())).add(orderAmount);
+            orderAmount = productInfo.getProductPrice().multiply(
+                    new BigDecimal(orderDetail.getProductQuantity())
+            ).add(orderAmount);
 //            3.订单详情入库
             BeanUtils.copyProperties(productInfo,orderDetail);
             orderDetail.setOrderId(orderId);
@@ -65,6 +70,8 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
         OrderMaster orderMaster = new OrderMaster();
         BeanUtils.copyProperties(orderDTO,orderMaster);
         orderMaster.setOrderId(orderId);
+        orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
+        orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
         orderMaster.setOrderAmount(orderAmount);
         save(orderMaster);
 
@@ -81,7 +88,22 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
 
     @Override
     public OrderDTO findOne(String orderId) {
-        return null;
+        QueryWrapper<OrderMaster> orderMasterQueryWrapper = new QueryWrapper<>();
+        orderMasterQueryWrapper.eq("order_id",orderId);
+        OrderMaster orderMaster = getOne(orderMasterQueryWrapper);
+        if (orderMaster == null){
+            throw new SellException(ResultEnum.ORDER_NOT_EXIST);
+        }
+        QueryWrapper<OrderDetail> orderDetailQueryWrapper = new QueryWrapper<>();
+        orderDetailQueryWrapper.eq("order_id",orderId);
+        List<OrderDetail> orderDetailList = orderDetailMapper.selectList(orderDetailQueryWrapper);
+        if (CollectionUtils.isEmpty(orderDetailList)){
+            throw new SellException(ResultEnum.ORDERDETAIL_NOT_EXIST);
+        }
+        OrderDTO orderDTO = new OrderDTO();
+        BeanUtils.copyProperties(orderMaster,orderDTO);
+        orderDTO.setOrderDetailList(orderDetailList);
+        return orderDTO;
     }
 
     @Override
