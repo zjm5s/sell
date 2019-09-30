@@ -5,6 +5,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.imooc.dto.OrderDTO;
 import com.imooc.entity.OrderDetail;
 import com.imooc.entity.OrderMaster;
+import com.imooc.enums.OrderStatusEnum;
+import com.imooc.enums.PayStatusEnum;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,14 +73,19 @@ public class OrderMasterServiceImplTest {
     public void cancel() {
         OrderDTO orderDTO = orderMasterService.findOne("1569741141753243683");
         OrderDTO cancel = orderMasterService.cancel(orderDTO);
-
     }
 
     @Test
     public void finish() {
+        OrderDTO orderDTO = orderMasterService.findOne("1569741141753243683");
+        OrderDTO finish = orderMasterService.finish(orderDTO);
+        Assert.assertEquals(OrderStatusEnum.FINISHED.getCode(),finish.getOrderStatus());
     }
 
     @Test
     public void pay() {
+        OrderDTO orderDTO = orderMasterService.findOne("1569741141753243683");
+        OrderDTO finish = orderMasterService.pay(orderDTO);
+        Assert.assertEquals(PayStatusEnum.SUCCESS.getCode(),finish.getPayStatus());
     }
 }
