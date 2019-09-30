@@ -46,7 +46,7 @@ public class BuyerOderController {
         OrderDTO createResult = orderMasterService.create(orderDTO);
         Map<String, String> map = new HashMap<>();
         map.put("orderId",createResult.getOrderId());
-        return ResultVOUtil.successe(map);
+        return ResultVOUtil.success(map);
     }
     //订单列表
     @GetMapping("/list")
@@ -59,7 +59,7 @@ public class BuyerOderController {
         }
 
         IPage<OrderDTO> list = orderMasterService.findList(openid, new Page<>(1, 10));
-        return ResultVOUtil.successe(list.getRecords());
+        return ResultVOUtil.success(list.getRecords());
     }
     //订单详情
 

@@ -1,5 +1,6 @@
 package com.imooc.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.imooc.Utils.Date2LongSerializer;
 import com.imooc.entity.OrderDetail;
@@ -12,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDTO {
 
     private String orderId;

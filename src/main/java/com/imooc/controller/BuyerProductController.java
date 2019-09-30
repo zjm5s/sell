@@ -58,6 +58,6 @@ public class BuyerProductController {
             productVO.setProductInfoVOS(productInfoVOS);
             productVOS.add(productVO);
         });
-        return ResultVOUtil.successe(productVOS);
+        return ResultVOUtil.success(productVOS);
     }
 }
