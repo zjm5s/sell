@@ -9,6 +9,8 @@ import com.imooc.dto.OrderDTO;
 import com.imooc.enums.ResultEnum;
 import com.imooc.exception.SellException;
 import com.imooc.form.OrderForm;
+import com.imooc.service.BuyerService;
+import com.imooc.service.impl.BuyerServiceImpl;
 import com.imooc.service.impl.OrderMasterServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class BuyerOderController {
 
     @Autowired
     private OrderMasterServiceImpl orderMasterService;
+
+    @Autowired
+    private BuyerServiceImpl buyerService;
 
     //创建订单
     @RequestMapping(path = "/create",method = RequestMethod.POST)
@@ -65,21 +70,14 @@ public class BuyerOderController {
     @GetMapping("/detail")
     public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
                                      @RequestParam("orderId") String orderId){
-        /**
-        *9/30/2019 11:05 PM  TODO: 不安全，需改进
-        */
-        OrderDTO orderDTO = orderMasterService.findOne(orderId);
+        OrderDTO orderDTO = buyerService.findOneOrder(openid,orderId);
         return ResultVOUtil.success(orderDTO);
     }
     //取消订单
     @PostMapping("/cancel")
     public ResultVO cancel(@RequestParam("openid") String openid,
                            @RequestParam("orderId") String orderId){
-        /**
-        *9/30/2019 11:09 PM  TODO: 不安全，需改进
-        */
-        OrderDTO orderDTO = orderMasterService.findOne(orderId);
-        OrderDTO cancel = orderMasterService.cancel(orderDTO);
-        return ResultVOUtil.success(cancel);
+        OrderDTO cancelOrder = buyerService.cancelOrder(openid, orderId);
+        return ResultVOUtil.success(cancelOrder);
     }
 }
