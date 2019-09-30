@@ -62,6 +62,24 @@ public class BuyerOderController {
         return ResultVOUtil.success(list.getRecords());
     }
     //订单详情
-
+    @GetMapping("/detail")
+    public ResultVO<OrderDTO> detail(@RequestParam("openid") String openid,
+                                     @RequestParam("orderId") String orderId){
+        /**
+        *9/30/2019 11:05 PM  TODO: 不安全，需改进
+        */
+        OrderDTO orderDTO = orderMasterService.findOne(orderId);
+        return ResultVOUtil.success(orderDTO);
+    }
     //取消订单
+    @PostMapping("/cancel")
+    public ResultVO cancel(@RequestParam("openid") String openid,
+                           @RequestParam("orderId") String orderId){
+        /**
+        *9/30/2019 11:09 PM  TODO: 不安全，需改进
+        */
+        OrderDTO orderDTO = orderMasterService.findOne(orderId);
+        OrderDTO cancel = orderMasterService.cancel(orderDTO);
+        return ResultVOUtil.success(cancel);
+    }
 }
