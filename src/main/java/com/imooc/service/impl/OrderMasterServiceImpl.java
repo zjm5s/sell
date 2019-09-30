@@ -67,14 +67,14 @@ public class OrderMasterServiceImpl extends ServiceImpl<OrderMasterMapper, Order
                     new BigDecimal(orderDetail.getProductQuantity())
             ).add(orderAmount);
 //            3.订单详情入库
-            BeanUtils.copyProperties(productInfo,orderDetail);
+            BeanUtils.copyProperties(productInfo,orderDetail,"createTime","updateTime");
             orderDetail.setOrderId(orderId);
             orderDetail.setDetailId(KeyUtil.genUniqueKey());
             orderDetailMapper.insert(orderDetail);
         }
         OrderMaster orderMaster = new OrderMaster();
+        orderDTO.setOrderId(orderId);
         BeanUtils.copyProperties(orderDTO,orderMaster);
-        orderMaster.setOrderId(orderId);
         orderMaster.setOrderStatus(OrderStatusEnum.NEW.getCode());
         orderMaster.setPayStatus(PayStatusEnum.WAIT.getCode());
         orderMaster.setOrderAmount(orderAmount);

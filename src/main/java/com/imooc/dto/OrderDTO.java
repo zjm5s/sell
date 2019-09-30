@@ -1,12 +1,14 @@
 package com.imooc.dto;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.imooc.Utils.Date2LongSerializer;
 import com.imooc.entity.OrderDetail;
 import com.imooc.enums.OrderStatusEnum;
 import com.imooc.enums.PayStatusEnum;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -52,12 +54,14 @@ public class OrderDTO {
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    @JsonSerialize(using = Date2LongSerializer.class)
+    private Date createTime;
 
     /**
      * 修改时间
      */
-    private LocalDateTime updateTime;
+    @JsonSerialize(using = Date2LongSerializer.class)
+    private Date updateTime;
 
     private List<OrderDetail> orderDetailList;
 }
