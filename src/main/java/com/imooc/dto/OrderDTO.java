@@ -13,7 +13,6 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class OrderDTO {
 
     private String orderId;
