@@ -24,3 +24,6 @@ mybatis-plus:
 server:
   servlet:
     context-path: /sell
+wechat:
+  mpAppId: wxce1d67a94534dc7e
+  mpAppSecret: 20045b0723cac830bdbc118153a6ecf2
