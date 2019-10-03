@@ -6,11 +6,8 @@ import org.springframework.stereotype.Component;
 
 @Data
 @Component
-@ConfigurationProperties(prefix = "wechat")
-public class WechatAccountConfig {
+@ConfigurationProperties(prefix = "wochat")
+public class WochatAccountConfig {
     private String mpAppId;
     private String mpAppSecret;
-    private String mchKey;
-    private String mchId;
-    private String keyPath;
 }

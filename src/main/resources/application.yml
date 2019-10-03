@@ -24,6 +24,11 @@ mybatis-plus:
 server:
   servlet:
     context-path: /sell
-wechat:
+wochat:
   mpAppId: wxce1d67a94534dc7e
   mpAppSecret: 20045b0723cac830bdbc118153a6ecf2
+wechat:
+  mpAppId: wxd898fcb01713c658
+  mchId: 1483469312
+  mchKey: C5245D70627C1F8E9964D494B0735025
+  keyPath: /your/path/h5.p12
