@@ -45,6 +45,8 @@ public class WechatController {
         }
 
         String openId = wxMpOAuth2AccessToken.getOpenId();
+        //此处为了测试先写固定openId
+        openId = "oTgZpwfqB17WfF1yNiHEYIY1BS3g";
         String redirectUrl= returnUrl + "?openid=" + openId;
         return "redirect:" + redirectUrl;
     }

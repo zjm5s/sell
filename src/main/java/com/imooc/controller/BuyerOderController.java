@@ -38,6 +38,7 @@ public class BuyerOderController {
     //创建订单
     @RequestMapping(path = "/create",method = RequestMethod.POST)
     public ResultVO<Map<String,String>> create(@Valid OrderForm orderForm, BindingResult bindingResult){
+        orderForm.setOpenid("oTgZpwfqB17WfF1yNiHEYIY1BS3g");
         if (bindingResult.hasErrors()){
             log.error("【创建订单】参数不正确，orderForm={}",orderForm);
             throw new SellException(ResultEnum.PARAM_ERROR.getCode(),bindingResult.getFieldError().getDefaultMessage());
